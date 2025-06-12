@@ -8,6 +8,7 @@ pub fn add_file(file: &str) {
         println!("File not found: {file}");
         return;
     }
+
     let contents = read(path)
         .expect("Failed to read {file}");
 
@@ -17,7 +18,6 @@ pub fn add_file(file: &str) {
     let hash = hex::encode(hasher.finalize());
 
     let obj_path = Path::new(".rsvcs").join("commits").join(&hash);
-    
     if !obj_path.exists() {
         write(&obj_path, &contents)
             .expect("Failed to write blob");
@@ -34,4 +34,3 @@ pub fn add_file(file: &str) {
 
     println!("Added file: {} (hash: {})", file, hash);
 }
-
