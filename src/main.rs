@@ -1,6 +1,7 @@
-use std::path::Path;
-use std::fs::{create_dir_all, write};
+use std::{fs::{create_dir_all, write, read}, path::Path};
 use clap::{Parser, Subcommand};
+// use sha1::{Sha1, Digest};
+use sha1::Sha1;
 
 #[derive(Parser)] // auto impl trait
 #[command(name = "rsvcs")]
@@ -12,24 +13,13 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    Init,
     Add { file: String },
     Commit {
         #[arg(short = 'm', long = "message")]
         message: String,
     },
+    Init,
     Log,
-}
-
-fn main() {
-    let cli = Cli::parse();
-
-    match cli.command {
-        Commands::Init => init_repo(),
-        Commands::Add { file } => add_file(&file),
-        Commands::Commit { message } => commit(&message),
-        Commands::Log => show_log(),
-    }
 }
 
 fn init_repo() {
@@ -50,7 +40,19 @@ fn init_repo() {
 }
 
 fn add_file(file: &str) {
-    println!("Adding file: {}", file);
+    let path = Path::new(file);
+
+    if !path.exists() {
+        eprintln!("File not found: {file}");
+        return;
+    }
+    let contents = read(path)
+        .expect("Failed to read {file}");
+
+    let mut hasher = Sha1::new();
+    hasher.update(&contents);
+
+    // let hash = hex::encode(hasher.finalize);
 }
 
 fn commit(message: &str) {
@@ -59,4 +61,15 @@ fn commit(message: &str) {
  
 fn show_log() {
     println!("Showing commit log");
+}
+
+fn main() {
+    let cli = Cli::parse();
+
+    match cli.command {
+        Commands::Init => init_repo(),
+        Commands::Add { file } => add_file(&file),
+        Commands::Commit { message } => commit(&message),
+        Commands::Log => show_log(),
+    }
 }
