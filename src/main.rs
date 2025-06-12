@@ -33,14 +33,18 @@ fn main() {
 }
 
 fn init_repo() {
-    if Path::new(".rsvcs").exists() {
+    let root = Path::new(".rsvcs");
+    if root.exists() {
         println!("Repo already initialised!");
         return;
     }
 
-    create_dir_all(".rsvcs/commits").unwrap();
-    write(".rsvcs/index", "").unwrap();
-    write(".rsvcs/HEAD", "").unwrap();
+    create_dir_all(root.join("commits"))
+        .expect("Failed to create {root}/commits/");
+    write(root.join("index"), b"")
+        .expect("Failed to create {root}/index");
+    write(root.join("HEAD"), b"")
+        .expect("Failed to create {root}/HEAD");
 
     println!("Repo Initialised successfully");
 }
