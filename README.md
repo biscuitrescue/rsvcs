@@ -37,6 +37,8 @@ cargo build --release
 ./target/release/rsvcs log
 ```
 
+***
+
 ## 📁 File Structure
 ```
 .mygit/
