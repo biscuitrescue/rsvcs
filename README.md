@@ -55,6 +55,8 @@ cargo build --release
 - chrono - Timestamps
 
 ## 📚 Roadmap
+- [ ] `refs` - impl branch refs
+- [ ] `object storage` - git-like
 - [ ] `status` - staged vs modified files
 - [ ] `checkout <hash>` - restore old state
 - [ ] `diff` - show changes
