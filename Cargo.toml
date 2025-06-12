@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
-sha1 = "0.6"  # or use sha2 for sha256
+sha1 = "0.10"  # or use sha2 for sha256
 walkdir = "2"
 chrono = "0.4"
 serde = { version = "1", features = ["derive"] }
