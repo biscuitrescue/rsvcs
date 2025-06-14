@@ -7,3 +7,7 @@ pub struct Commit {
     pub tree: String,
     pub timestamp: DateTime<Utc>
 }
+
+pub fn commit(message: &str) {
+
+}
