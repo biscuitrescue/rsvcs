@@ -18,7 +18,7 @@ fn main() {
     match cli.command {
         Commands::Init => init::init_repo(),
         Commands::Add { file } => add::add_file(&file),
-        Commands::Commit { message } => commit::commit(&message),
+        Commands::Commit { message } => commit::commit_changes(&message),
         Commands::Log => show_log(),
     }
 }
