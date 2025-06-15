@@ -42,7 +42,8 @@ cargo build --release
 ## 📁 File Structure
 ```
 .mygit/
-├── commits/         # All committed snapshots (blobs)
+├── commits/         # All committed objects, stored by hash
+├── objects/         # All file contents (blobs), stored by hash
 ├── index            # Staging area
 └── HEAD             # Points to latest commit hash
 ```
