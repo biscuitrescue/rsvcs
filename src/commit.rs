@@ -1,4 +1,4 @@
-use chrono::{Local, DateTime, Utc};
+// use chrono::{Local, DateTime, Utc};
 use sha1::{Sha1, Digest};
 use serde::{Serialize, Deserialize};
 use std::{collections::HashMap, path::Path};
@@ -7,10 +7,8 @@ use std::{collections::HashMap, path::Path};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Commit {
     pub message: String,
-    pub parent: Option<String>,
-    pub author: String,
-    pub tree: String,
-    pub timestamp: DateTime<Utc>
+    pub files,
+    // pub timestamp: DateTime<Utc>
 }
 
 pub fn commit_changes(message: &str) {
@@ -21,8 +19,25 @@ pub fn commit_changes(message: &str) {
         return;
     }
 
-    let ind_contents = read_to_string(ind_path)
+    let content = read_to_string(ind_path)
         .expect("Failed to read file");
 
     let mut files = HashMap::new();
+
+    for line in content.lines() {
+        let val: Vec<&str> = line.split_whitespaces().collect();
+        if val.len() == 2 {
+            files.insert(val[1].to_string(), val[0].to_string());
+        }
+    }
+
+    // Add timestamp
+
+    let commit = Commit {
+        message: message.to_string(),
+        files,
+    };
+
+    // hashing left
 }
+
