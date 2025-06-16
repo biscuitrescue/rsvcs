@@ -13,6 +13,7 @@ fn show_log() {
 }
 
 fn main() {
+    
     let cli = Cli::parse();
 
     match cli.command {
