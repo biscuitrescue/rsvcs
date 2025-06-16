@@ -3,7 +3,8 @@ use sha1::{Sha1, Digest};
 use serde::{Serialize, Deserialize};
 use std::{collections::HashMap, fs::{remove_file, write, read_to_string}, path::Path};
 
-#[allow(dead_code)]
+// Add timestamp
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Commit {
     pub message: String,
@@ -31,14 +32,11 @@ pub fn commit_changes(message: &str) {
         }
     }
 
-    // Add timestamp
-
-    let commit = Commit {
+   let commit = Commit {
         message: message.to_string(),
         files,
     };
 
-    // hashing left
     let serial = serde_json::to_string_pretty(&commit)
         .expect("Failed to serialise");
 
