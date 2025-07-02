@@ -32,7 +32,7 @@ pub fn commit_changes(message: &str) {
         }
     }
 
-   let commit = Commit {
+    let commit = Commit {
         message: message.to_string(),
         files,
     };
